@@ -3,12 +3,52 @@
 <head>
     <title>Aditi's Python Journey</title>
     <style>
-        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        body { 
+            font-family: sans-serif; 
+            text-align: center; 
+            padding: 50px;
+            background-color: #f9f9f9;
+        }
         h1 { color: #333; }
+        p { color: #666; }
+        .projects { 
+            margin-top: 40px; 
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .projects h2 { color: #444; margin-bottom: 20px; }
+        .project-link { 
+            display: block; 
+            margin: 15px 0; 
+            padding: 15px; 
+            background: white; 
+            text-decoration: none; 
+            color: #333;
+            border-radius: 8px;
+            border: 2px solid #4CAF50;
+            transition: all 0.3s;
+        }
+        .project-link:hover { 
+            background: #4CAF50; 
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to Aditi's Python Journey</h1>
     <p>This is my collection of Python practice and notes.</p>
+    
+    <div class="projects">
+        <h2>📁 My Python Projects:</h2>
+        <a class="project-link" href="https://github.com/aditikumari-byte/python-notes/blob/main/example.py" target="_blank">
+            🐍 example.py - View Code on GitHub
+        </a>
+        <a class="project-link" href="https://github.com/aditikumari-byte/python-notes/blob/main/guessing_game.py" target="_blank">
+            🎮 guessing_game.py - View Code on GitHub
+        </a>
+    </div>
 </body>
 </html>
