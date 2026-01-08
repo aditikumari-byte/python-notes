@@ -48,8 +48,9 @@ def complete_todo():
          return
 
        remove = task_completed - 1  
+       completed_task = todo_list[remove]
        todo_list.pop(remove)
-       print(f"Completed task: {task_completed}")
+       print(f"Completed task: {completed_task["task"]}")
     
     except ValueError:
         print("Please enter a valid number.")
