@@ -59,11 +59,6 @@ while True:
         add_student(name, grade)
         print(f"Added {name} with grade {grade}.")
 
-        add_more_information = input("Do you want to add more information(yes/no): ")
-        if add_more_information.lower() != "yes":
-         print('bye')
-         break
-
 
    elif choice == "2":
      show_all_students()

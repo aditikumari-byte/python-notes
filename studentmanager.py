@@ -8,7 +8,7 @@ def add_student(name,age,math,science,english):
 
 
 def show_all_students():
-    print("\n--- Allstudents ---")
+    print("\n--- All students ---")
     for student in students:
         print(f"Name: {student['name']}, Age: {student['age']}, Grades: {student['grades']}")
              
@@ -81,10 +81,10 @@ while True:
 
    if choice == '1':
       name = input("Enter student name: ")
-      age = input("Enter student age: ")
-      math = input("Enter math grade: ")
-      science = input("Enter science grade: ")
-      english = input("Enter english grade: ")
+      age = int(input("Enter student age: "))
+      math = float(input("Enter math grade: "))
+      science = float(input("Enter science grade: "))
+      english = float(input("Enter english grade: "))
       add_student(name, age, math, science, english)
       print(f"Added {name} successfully of Age: {age} with Grades: 'Math':{math}, 'English':{english}, 'Science':{science}")
 
@@ -106,6 +106,7 @@ while True:
 
    elif choice == '7':
       print("Goodbye!")
+      break
 
    else:
       print("Invalid entry!")          
