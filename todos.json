@@ -1,0 +1,14 @@
+[
+  {
+    "task": "Buy groceries",
+    "priority": "high"
+  },
+  {
+    "task": "Call mom",
+    "priority": "medium"
+  },
+  {
+    "task": "Read book",
+    "priority": "low"
+  }
+]

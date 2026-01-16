@@ -1,0 +1,25 @@
+# Writing to a text file
+# Open file in write mode ("w")
+
+file = open ("test.txt", "w")
+file.write("Hello, World!\n")
+file.write("This is line 2.\n")
+file.write("This is line 3.\n")
+file.close()
+
+print("File written successfully!")  
+
+#Using 'with' - automatically closes file
+
+#Writing
+with open("test2.txt", "w") as file:
+    file.write("Line 1\n")
+    file.write("Line 2\n")
+    file.write("Line 3\n")
+#File automatically closed here!
+
+#Reading
+with open("test2.txt","r") as file:
+    content = file.read()
+    print(content)
+

@@ -1,4 +1,25 @@
+import json
+
 todo_list = []
+
+def save_todos():
+    """Save todo list to JSON file"""
+    with open("todos.json", "w") as file:
+        json.dump(todo_list,file, indent=2)
+
+def load_todos():
+    """Load todo list from JSON file"""
+    global todo_list
+    try:
+        with open("todos.json","r") as file:
+            todo_list = json.load(file)
+            print(" Loaded todos from file!")
+    except FileNotFoundError:
+        print("No saved todos found. Starting fresh!")
+        todo_list = []
+    except json.JSONDecodeError:
+        print("File corrupted. Startinf fresh!")
+        todo_list = []
 
 def add_todo():
     task =  input('Enter task: ')
@@ -56,7 +77,7 @@ def complete_todo():
         print("Please enter a valid number.")
 
 
-
+load_todos()
 
 while True:
     print("\n--- Todo List Manager ---")
@@ -70,14 +91,17 @@ while True:
 
     if choice == '1':
         add_todo()
+        save_todos()
     elif choice == '2':
         show_all_todos()
     elif choice == '3':
         show_by_priority()
     elif choice == '4':
         complete_todo()
+        save_todos()
     elif choice == '5':
-        print("Goodbye!")
+        save_todos()
+        print("Todos saved! Goodbye!")
         break 
 
     else:
