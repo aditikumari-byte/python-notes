@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Todo List App</title>
+        <style>
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764bac 100%);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .container {
+                background: white;
+                border-radius:15px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+                padding: 30px;
+                max-width: 500px;
+                width:100%    
+            }
+
+            h1 {
+                color: #333;
+                margin-bottom: 20px;
+                text-align: center;
+            }
+             
+            .input-section {
+                display:flex;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            #todoInput:focus {
+                border-color: #667eea;
+            }
+
+            #todoInput {
+                flex: 1;
+                padding: 12px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                font-size: 16px;
+                outline: none;
+            }
+             
+            button {
+                padding:12px 25px;
+                background: #667eea;
+                color:white;
+                border: none;
+                border-radius:8px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background 0.3s;
+            }
+
+            button:hover {
+                background: #5568d3;
+            }
+
+            #todolist {
+                list-style:none;
+            }
+
+            .todo-item {
+                background: #f8f9fa;
+                padding: 15px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+                display:flex;
+                align-items: center;
+                gap:10px;
+                transition: all 0.3s;
+            }
+
+            .todo-item:hover {
+                background: #e9ecef;
+                transform: translateX(5px);
+            }
+
+            .todo-item.completed {
+                opacity: 0.6;
+            }
+
+            .todo-item.completed .todo-text {
+                text-decoration: line-through;
+                color: #999;
+            }
+            .todo-text {
+                flex: 1;
+                color: #333;
+            }
+
+            .todo-btn {
+                padding: 8px 12px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+            .completed-btn {
+                background: #28a745;
+                color: white;
+            }
+
+            .delete-btn {
+                background: #dc3545;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>My Todo List</h1>
+
+            <div class="input-section">
+                <input type="text" id="todoInput" placeholder="Add a new task...">
+                <button onclick="addTodo()">Add</button>
+            </div>
+            <ul id="todoList">
+
+            </ul>
+        </div>
+        <script>
+            let todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+            window.onload = function() {
+                displayTodos();
+            };
+
+            function addTodo() {
+                const input = document.getElementById('todoInput');
+                const todoText = input.value.trim();
+
+                if(todoText === '') {
+                    alert('Please enter a task!');
+                    return;
+                }
+
+                const todo = {
+                    id: Date.now(),
+                    text: todoText,
+                    completed:false
+                };
+
+                todos.push(todo);
+
+                saveTodos();
+
+                displayTodos();
+
+                input.value = '';
+            }
+
+            function displayTodos() {
+                const todoList = document.getElementById('todoList');
+                todoList.innerHTML = '';
+
+                todos.forEach(todo => {
+                    const li = document.createElement('li');
+                    li.className = 'todo-item' + (todo.completed ? ' completed' : '');
+
+                    li.innerHTML=`
+                        <span class="todo-text">${todo.text}</span>
+                        <button class="todo-btn complete-btn" onclick="toggleComplete(${todo.id})">
+                            ${todo.completed ? 'Undo' : 'Done'}
+                        </button>
+                        <button class = "todo-btn delete-btn" onclick="deleteTodo(${todo.id})">
+                            Delete
+                        </button>
+                    `;
+                    
+                    todoList.appendChild(li);
+                });
+            }
+
+            function toggleComplete(id) {
+                todos = todos.map(todo => {
+                    if (todo.id === id) {
+                        todo.completed = !todo.completed;
+                    }
+                    return todo;
+                });
+                
+                saveTodos();
+                displayTodos();
+            }
+
+            function deleteTodo(id) {
+                todos = todos.filter(todo => todo.id !== id);
+                saveTodos();
+                displayTodos();
+            }
+
+            function saveTodos() {
+                localStorage.setItem('todos', JSON.stringify(todos));
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.getElementById('todoInput').addEventListener('keypress', function(e) {
+                    if (e.key=== 'Enter') {
+                        addTodo();
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
