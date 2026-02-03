@@ -84,3 +84,86 @@ def animal(name,type="cat"):
 animal("meow")
 animal("luck",type="dog")
 
+class Student:
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+    def is_adult(self):
+        if self.age>= 18:
+            print(f"{self.name} is an adult of age {self.age}.")
+        else:
+            print(f"{self.name} is not an adult.")    
+
+
+class Category:
+    def __init__(self,name):
+        self.name=name
+        self.ledger=[]
+
+    def deposit(self,amount,description=""):
+        self.ledger.append({'amount': amount,'description': description})
+        
+    def withdraw(self,amount,description=""):
+        if self.check_funds(amount):
+            self.ledger.append({"amount": - amount,"description": description})
+            return True
+        else:
+            return False    
+
+
+    def get_balance(self):
+        balance=0
+        for i in self.ledger:
+            balance = balance + i["amount"]
+        return balance  
+
+    def transfer(self,amount,destination):
+        if self.check_funds(amount):
+            self.withdraw(amount, description = f"Transfer to {destination.name}")
+            destination.deposit(amount, description= f"Transfer from {self.name}")
+            return True
+        else:
+            return False    
+
+    def check_funds(self,amount):
+        balance = self.get_balance()
+        if amount > balance:
+            return False
+        else:
+            return True
+
+    def __str__(self):
+        title = self.name.center(30,"*")
+        output = title + "\n"
+        
+        for item in self.ledger:
+            des= item["description"][:23].ljust(23)
+            amt= f"{item['amount']:.2f}".rjust(7)
+            output += des + amt + "\n"
+        output += f"Total: {self.get_balance():.2f}"
+        return output
+
+
+def create_spend_chart(categories):
+    
+    category_spending = []
+    
+    for item in categories:
+        spending=0
+        
+        for entry in item.ledger:
+           if entry["amount"]< 0:
+                spending += abs(entry["amount"])
+        
+        category_spending.append(spending)        
+   
+   # return category_spending
+
+    total_spending = sum(category_spending)
+    percentage = []
+
+    for amount in category_spending:
+        percent = (((amount/total_spending)*100) // 10) *10
+        percentage.append(percent)
+
+    return percentage    
